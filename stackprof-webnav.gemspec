@@ -29,6 +29,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency "ruby-graphviz", "~> 1.2.4"
   spec.add_dependency "sinatra-contrib", ">= 2.1.0", "< 5.0.0"
   spec.add_dependency "webrick", "~> 1.7"
+  spec.add_dependency "ostruct", "~> 0.6.1" if Gem::Version.new(RUBY_VERSION) >= "3.5"
   spec.add_development_dependency "bundler", "~> 2.2"
   spec.add_development_dependency "rake", "~> 10.1"
   spec.add_development_dependency "rspec", "~> 3.9.0"
