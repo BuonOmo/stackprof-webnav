@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'haml'
+require 'ostruct'
 require 'stackprof'
 require_relative 'presenter'
 require_relative 'dump'
