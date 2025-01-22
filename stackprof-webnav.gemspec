@@ -1,5 +1,5 @@
 # coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'stackprof-webnav/version'
 
@@ -21,10 +21,10 @@ Gem::Specification.new do |spec|
   spec.bindir = 'bin'
   spec.executables << 'stackprof-webnav'
 
-  spec.add_dependency "sinatra", ">= 2.1.0", "< 5.0.0"
-  spec.add_dependency "haml", "~> 5.1.2"
+  spec.add_dependency "sinatra", "~> 4.1.1"
+  spec.add_dependency "haml", "~> 6.3.0"
   spec.add_dependency "stackprof", ">= 0.2.13"
-  spec.add_dependency "better_errors", "~> 1.1.0"
+  spec.add_dependency "better_errors", "~> 2.10.1"
   spec.add_dependency "rackup", ">= 1.0.0", "< 3.0.0"
   spec.add_dependency "ruby-graphviz", "~> 1.2.4"
   spec.add_dependency "sinatra-contrib", ">= 2.1.0", "< 5.0.0"

@@ -60,10 +60,18 @@ RSpec.describe "integration tests" do
     expect(response.body.size).to_not eq(0)
   end
 
-  it "method page renders information about a method" do
-    frame = presenter.overview_frames.first
-    app.get "/method", dump: fixture_path("test.dump"), name: frame[:method]
-    expect(response.body).to include("Callers")
+  describe "method" do
+    it "renders information about a method" do
+      frame = presenter.overview_frames.first
+      app.get "/method", dump: fixture_path("test.dump"), name: frame[:method]
+      expect(response.body).to include("Callers")
+    end
+
+    it "does not crash when rendering a cfunc" do
+      app.get "/method", dump: fixture_path("test.dump"), name: "Array#each"
+      expect(response.body).to include("Callers")
+      expect(response.body).to include("Source is not available")
+    end
   end
 
   it "does not crash on a file page" do
