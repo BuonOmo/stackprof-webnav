@@ -22,4 +22,6 @@ parser.parse!
 server = StackProf::Webnav::Server
 server.cmd_options = options
 
-Rack::Handler.pick(['thin', 'webrick']).run server.new, :Host => options[:addr], :Port => options[:port]
+# Backwards compatibility with Rack::Handler.
+handler = defined?(Rackup::Handler) ? Rackup::Handler : Rack::Handler
+handler.pick(['thin', 'webrick']).run server.new, :Host => options[:addr], :Port => options[:port]
