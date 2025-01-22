@@ -13,27 +13,31 @@ on:
   pull_request:
     branches: [ master ]
 
+# Cancel any in-progress job or run
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   test:
-
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby-version:
-          - '2.7'
-          - '3.0'
+          - '3.2'
+          - '3.3'
+          - '3.4'
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-    # To automatically get bug fixes and new Ruby versions for ruby/setup-ruby,
-    # change this to (see https://github.com/ruby/setup-ruby#versioning):
-    # uses: ruby/setup-ruby@v1
-      uses: ruby/setup-ruby@473e4d8fe5dd94ee328fdfca9f8c9c7afc9dae5e
-      with:
-        ruby-version: ${{ matrix.ruby-version }}
-        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
-    - name: Install graphviz
-      run: sudo apt-get install -y graphviz
-    - name: Run tests
-      run: bundle exec rspec
+      - uses: actions/checkout@v4
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+          bundler-cache: true
+          cache-version: 1 # Increment to clear cache.
+      - name: Install graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+      - name: Run tests
+        run: bundle exec rspec
