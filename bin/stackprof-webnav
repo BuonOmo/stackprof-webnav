@@ -22,4 +22,4 @@ parser.parse!
 server = StackProf::Webnav::Server
 server.cmd_options = options
 
-Rack::Handler.pick(['thin', 'webrick']).run server.new, :Host => options[:addr], :Port => options[:port]
+Rackup::Handler.pick(['thin', 'webrick']).run server.new, :Host => options[:addr], :Port => options[:port]
