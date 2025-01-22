@@ -45,7 +45,7 @@ module StackProf
             :callers => callers(frame, info),
             :callees => callees(frame, info),
             :location => file,
-            :source => BetterErrors::CodeFormatter::HTML.new(file, line).output
+            :source => file && line ? BetterErrors::CodeFormatter::HTML.new(file, line).output : nil
           }
         end
       end
